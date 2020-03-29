@@ -9,3 +9,17 @@
     display: none;
   }
 }
+
+footer {
+  color: #eeeeee;
+  text-align: center;
+  padding: 25px;
+}
+
+footer a {
+  color: #eeeeee;
+}
+
+.navbar {
+  height: 8vh;
+}
