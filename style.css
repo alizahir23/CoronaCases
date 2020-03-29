@@ -3,13 +3,6 @@
   margin: 0;
   box-sizing: border-box;
 }
-
-@media screen and (max-width: 480px) {
-  .removeMob {
-    display: none;
-  }
-}
-
 footer {
   color: #eeeeee;
   text-align: center;
@@ -18,4 +11,10 @@ footer {
 
 footer a {
   color: #eeeeee;
+}
+
+@media screen and (max-width: 480px) {
+  .removeMob {
+    display: none;
+  }
 }
