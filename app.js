@@ -147,17 +147,19 @@ navigator.geolocation.getCurrentPosition(position => {
             fetch(`https://thevirustracker.com/free-api?countryNewsTotal=${country}`)
                 .then(response => response.json())
                 .then(data => {
-
+                    let i = 1;
 
                     let newsItems = data.countrynewsitems;
 
-                    console.log(data);
+                    var x = window.matchMedia("(max-width: 479px)")
+
+                    i = matchingMediaQuerry(x);
 
                     let lastIndex = countProperties(newsItems[0]);
                     let output = "";
-                    let i = 1;
+
                     lastIndex--;
-                    while (i < 6) {
+                    while (i > 0) {
 
                         output += `
                         <div class="card newsCard" ">
@@ -170,7 +172,7 @@ navigator.geolocation.getCurrentPosition(position => {
                       </div>
                         `;
 
-                        i++;
+                        i--;
                         lastIndex--;
                     }
 
@@ -182,4 +184,11 @@ navigator.geolocation.getCurrentPosition(position => {
 function countProperties(obj) {
     console.log(Object.keys(obj).length);
     return Object.keys(obj).length;
+}
+function matchingMediaQuerry(x) {
+    if (x.matches) { // If media query matches
+        return 4;
+    } else {
+        return 20;
+    }
 }
