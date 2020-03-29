@@ -1,13 +1,5 @@
 const filter = document.querySelector("#filter");
 
-
-
-fetch("https://corona.lmao.ninja/historical", requestOptions)
-    .then(response => response.json())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-
-
 var requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -23,9 +15,9 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
         result.reverse();
         result.forEach((data, index) => {
 
-            console.log(data.country, data.cases, data.deaths);
+
             output += `<tr>
-                        <th scope="row">${index + 1}</th>
+                        <th class ="removeMob">${index + 1}</th>
                         <td class='country'>${data.country}</td>
                         <td>${data.cases}</td>
                         <td>${data.deaths}</td>
@@ -37,7 +29,7 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
     .catch(error => console.log('error', error));
 
 
-function filterCountries(e) {
+function filterCountries() {
 
     // Declare variables 
     var input, filter, table, tr, td, i, txtValue;
