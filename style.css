@@ -24,3 +24,22 @@ thead th {
   position: -webkit-sticky;
   top: 0;
 }
+
+.newsGrid {
+  margin-left: -10vw;
+}
+
+.newsGrid h3 {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.newsCard {
+  margin: 2vh 0 2vh 0;
+}
+
+@media screen and (max-width: 600px) {
+  .newsGrid {
+    margin-left: 0;
+  }
+}

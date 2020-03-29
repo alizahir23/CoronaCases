@@ -150,8 +150,36 @@ navigator.geolocation.getCurrentPosition(position => {
 
 
                     let newsItems = data.countrynewsitems;
-                    newsItems.reverse();
-                    console.log(newsItems);
+
+                    console.log(data);
+
+                    let lastIndex = countProperties(newsItems[0]);
+                    let output = "";
+                    let i = 1;
+                    lastIndex--;
+                    while (i < 6) {
+
+                        output += `
+                        <div class="card newsCard" ">
+                        <img class="card-img-top" src="${newsItems[0][lastIndex].image}" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">${newsItems[0][lastIndex].time}</p>
+                            <h5 class="card-title">${newsItems[0][lastIndex].title}</h5>
+                            <a href="${newsItems[0][lastIndex].url}" target="_blank" class="btn btn-primary w-100">View Full Story</a>
+                        </div>
+                      </div>
+                        `;
+
+                        i++;
+                        lastIndex--;
+                    }
+
+                    document.querySelector('.newsCards').innerHTML = output;
                 })
         })
 })
+
+function countProperties(obj) {
+    console.log(Object.keys(obj).length);
+    return Object.keys(obj).length;
+}

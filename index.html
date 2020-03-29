@@ -19,7 +19,7 @@
     <title>CoronaCases</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark  ">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
       <a class="navbar-brand " href="#">CoronaCases</a>
       <button
         class="navbar-toggler "
@@ -50,7 +50,13 @@
     </nav>
 
     <div class="container">
-      <table id="myTable" class="table my-5">
+      <div class="row ">
+      <div class="col-md-3 my-5 newsGrid">
+        <h2 class="text-center">Latest News</h2>
+        <div class="newsCards"></div>
+      </div>
+      <div class="col-md-9">
+      <table id="myTable" class="table  my-5">
         <thead class="thead-dark">
           <tr class="header">
             <th scope="col">#</th>
@@ -67,7 +73,9 @@
         <tbody class="tbody"></tbody>
       </table>
     </div>
-    <footer class="bg-dark">
+  </div>
+    </div>
+    <footer class="bg-dark muted">
       <p>Developed by Ali Zahir</p>
 
       <a href="https://github.com/alizahir23/CoronaCases">View on GitHub</a>
