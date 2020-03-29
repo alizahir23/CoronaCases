@@ -3,9 +3,9 @@ var requestOptions = {
     redirect: 'follow'
 };
 var output = "";
-let lat, long, currentCountry;
+let lat, long, currentCountry, d;
 const tableBody = document.querySelector('.tbody');
-const tableBodyCurrent = document.querySelector('.current');
+
 
 fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
     .then(response => response.json())
@@ -42,10 +42,15 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
                         if (data.country == countryName) {
 
                             output = `<tr class="current">
-                                        <th class="removeMob">${index + 1}</th>
+                                        <th class=" ">${index + 1}</th>
                                         <td class='country '>${data.country} <span class="badge badge-pill badge-warning">Your Location</span></td>
-                                        <td>${data.cases}</td>
-                                        <td>${data.deaths}</td>
+                                        <td>${data.cases.toLocaleString()}</td>
+                                        <td>${data.todayCases.toLocaleString()}</td>
+                                        <td>${data.deaths.toLocaleString()}</td>
+                                        <td>${data.todayDeaths.toLocaleString()}</td>
+                                        <td>${data.recovered.toLocaleString()}</td>
+                                        <td>${data.casesPerOneMillion}</td>
+                                        <td>${data.deathsPerOneMillion}</td>
                                     </tr>`;
 
                             tableBody.innerHTML = output;
@@ -68,10 +73,15 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
 
 
                         output += `<tr>
-                                    <th class="removeMob">${index + 1}</th>
+                                    <th class=" ">${index + 1}</th>
                                     <td class='country'>${data.country}</td>
-                                    <td>${data.cases}</td>
-                                    <td>${data.deaths}</td>
+                                    <td>${data.cases.toLocaleString()}</td>
+                                    <td>${data.todayCases.toLocaleString()}</td>
+                                    <td>${data.deaths.toLocaleString()}</td>
+                                    <td>${data.todayDeaths.toLocaleString()}</td>
+                                    <td>${data.recovered.toLocaleString()}</td>
+                                    <td>${data.casesPerOneMillion}</td>
+                                    <td>${data.deathsPerOneMillion}</td>
                                    </tr>`;
                     })
                     tableBody.innerHTML = output;
@@ -110,4 +120,38 @@ function filterCountries() {
             }
         }
     }
-}
+};
+
+
+
+navigator.geolocation.getCurrentPosition(position => {
+    lat = position.coords.latitude;
+    long = position.coords.longitude;
+
+    // fetching location
+
+    fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`)
+        .then(response => {
+
+
+            return response.json();
+
+        })
+        .then(data => {
+
+            currentCountry = data.countryCode;
+            return currentCountry;
+
+        })
+        .then(country => {
+            fetch(`https://thevirustracker.com/free-api?countryNewsTotal=${country}`)
+                .then(response => response.json())
+                .then(data => {
+
+
+                    let newsItems = data.countrynewsitems;
+                    newsItems.reverse();
+                    console.log(newsItems);
+                })
+        })
+})

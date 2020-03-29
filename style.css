@@ -2,7 +2,9 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  overflow: visible;
 }
+
 footer {
   color: #eeeeee;
   text-align: center;
@@ -13,12 +15,12 @@ footer a {
   color: #eeeeee;
 }
 
-@media screen and (max-width: 480px) {
-  .removeMob {
-    display: none;
-  }
-}
-
 .current {
   background-color: rgb(240, 240, 240);
+}
+
+thead th {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
 }
