@@ -42,7 +42,7 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
                         if (data.country == countryName) {
 
                             output = `<tr class="current">
-                                        <th>${index + 1}</th>
+                                        <th class="removeMob">${index + 1}</th>
                                         <td class='country '>${data.country} <span class="badge badge-pill badge-warning">Your Location</span></td>
                                         <td>${data.cases}</td>
                                         <td>${data.deaths}</td>
@@ -68,7 +68,7 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
 
 
                         output += `<tr>
-                                    <th>${index + 1}</th>
+                                    <th class="removeMob">${index + 1}</th>
                                     <td class='country'>${data.country}</td>
                                     <td>${data.cases}</td>
                                     <td>${data.deaths}</td>
