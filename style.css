@@ -18,3 +18,7 @@ footer a {
     display: none;
   }
 }
+
+.current {
+  background-color: rgb(240, 240, 240);
+}
