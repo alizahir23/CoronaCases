@@ -37,7 +37,8 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
 
                 })
                 .then(countryName => {
-
+                    result.sort((a, b) => parseFloat(a.cases) - parseFloat(b.cases));
+                    result.reverse();
                     result.forEach((data, index) => {
                         if (data.country == countryName) {
 
@@ -67,8 +68,7 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
 
                     console.log(result)
 
-                    result.sort((a, b) => parseFloat(a.cases) - parseFloat(b.cases));
-                    result.reverse();
+
                     result.forEach((data, index) => {
 
 
