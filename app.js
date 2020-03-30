@@ -89,7 +89,6 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
 
 
         }, error => {
-            console.log(error);
             result.sort((a, b) => parseFloat(a.cases) - parseFloat(b.cases));
             result.reverse();
             result.forEach((data, index) => {
@@ -151,8 +150,7 @@ function filterCountries(e) {
 
 };
 
-
-
+// Getting News
 navigator.geolocation.getCurrentPosition(position => {
     lat = position.coords.latitude;
     long = position.coords.longitude;
@@ -209,6 +207,16 @@ navigator.geolocation.getCurrentPosition(position => {
                 })
         })
 }, err => {
+    // if location declined
+    document.querySelector('.alertContainer').innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+            <strong>${err.message}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    `;
+
     fetch(`https://thevirustracker.com/free-api?countryNewsTotal=US`)
         .then(response => response.json())
         .then(data => {
@@ -244,6 +252,22 @@ navigator.geolocation.getCurrentPosition(position => {
 
         })
 })
+
+// Global Totals
+
+fetch('https://corona.lmao.ninja/all')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        document.querySelector('.globalTotals').innerHTML = `
+        <span class="badge badge-warning">Total Cases: ${data.cases.toLocaleString()}</span>
+        <span class="badge badge-danger">Total Deaths: ${data.deaths.toLocaleString()}</span>
+        <span class="badge badge-success">Total Recovered: ${data.recovered.toLocaleString()}</span>
+        <span class="badge badge-info">Active Cases: ${data.active.toLocaleString()}</span>
+        `;
+    })
+
 
 function countProperties(obj) {
     console.log(Object.keys(obj).length);

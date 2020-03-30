@@ -21,7 +21,7 @@ footer a {
 
 thead th {
   position: sticky;
-  position: -webkit-sticky;
+
   top: 0;
 }
 
@@ -43,4 +43,9 @@ thead th {
   .newsGrid {
     margin-left: 0;
   }
+}
+
+.globalTotals span {
+  margin: 10px;
+  padding: 5px;
 }
