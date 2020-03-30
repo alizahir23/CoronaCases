@@ -88,6 +88,26 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
                 })
 
 
+        }, error => {
+            console.log(error);
+            result.sort((a, b) => parseFloat(a.cases) - parseFloat(b.cases));
+            result.reverse();
+            result.forEach((data, index) => {
+
+
+                output += `<tr>
+                            <th class=" ">${index + 1}</th>
+                            <td class='country'>${data.country}</td>
+                            <td>${data.cases.toLocaleString()}</td>
+                            <td>${data.todayCases.toLocaleString()}</td>
+                            <td>${data.deaths.toLocaleString()}</td>
+                            <td>${data.todayDeaths.toLocaleString()}</td>
+                            <td>${data.recovered.toLocaleString()}</td>
+                            <td>${data.casesPerOneMillion}</td>
+                            <td>${data.deathsPerOneMillion}</td>
+                           </tr>`;
+            })
+            tableBody.innerHTML = output;
         })
 
 
@@ -187,6 +207,41 @@ navigator.geolocation.getCurrentPosition(position => {
 
 
                 })
+        })
+}, err => {
+    fetch(`https://thevirustracker.com/free-api?countryNewsTotal=US`)
+        .then(response => response.json())
+        .then(data => {
+            let i = 1;
+            console.log(data)
+            let newsItems = data.countrynewsitems;
+
+            var x = window.matchMedia("(max-width: 479px)");
+
+            i = matchingMediaQuerry(x);
+
+            let lastIndex = countProperties(newsItems[0]);
+            let output = "";
+
+            lastIndex--;
+            while (i > 0) {
+
+                document.querySelector('.newsCards').innerHTML += `
+                        <div class="card newsCard" ">
+                        <img class="card-img-top" src="${newsItems[0][lastIndex].image}" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">${newsItems[0][lastIndex].time}</p>
+                            <h5 class="card-title">${newsItems[0][lastIndex].title}</h5>
+                            <a href="${newsItems[0][lastIndex].url}" target="_blank" class="btn btn-primary w-100">View Full Story</a>
+                        </div>
+                      </div>
+                        `;
+
+                i--;
+                lastIndex--;
+            }
+
+
         })
 })
 
