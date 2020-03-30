@@ -98,7 +98,7 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
     .catch(error => console.log('error', error));
 
 
-function filterCountries() {
+function filterCountries(e) {
 
     // Declare variables 
     var input, filter, table, tr, td, i, txtValue;
@@ -106,20 +106,29 @@ function filterCountries() {
     filter = input.value.toUpperCase();
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
-
+    var x = window.matchMedia("(max-width: 479px)");
     // Loop through all table rows, and hide those who don't match the search query
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[0];
 
+
         if (td) {
             txtValue = td.textContent || td.innerText;
+            if (filter) {   //removes news grid while searching on smaller
+
+                matchingMediaQuerryForNewsGrid(x);
+            } else {
+                document.querySelector('.newsGrid').style.display = "";
+            }
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
+
                 tr[i].style.display = "";
             } else {
                 tr[i].style.display = "none";
             }
         }
     }
+
 };
 
 
@@ -148,10 +157,10 @@ navigator.geolocation.getCurrentPosition(position => {
                 .then(response => response.json())
                 .then(data => {
                     let i = 1;
-
+                    console.log(data)
                     let newsItems = data.countrynewsitems;
 
-                    var x = window.matchMedia("(max-width: 479px)")
+                    var x = window.matchMedia("(max-width: 479px)");
 
                     i = matchingMediaQuerry(x);
 
@@ -161,7 +170,7 @@ navigator.geolocation.getCurrentPosition(position => {
                     lastIndex--;
                     while (i > 0) {
 
-                        output += `
+                        document.querySelector('.newsCards').innerHTML += `
                         <div class="card newsCard" ">
                         <img class="card-img-top" src="${newsItems[0][lastIndex].image}" alt="Card image cap">
                         <div class="card-body">
@@ -176,7 +185,7 @@ navigator.geolocation.getCurrentPosition(position => {
                         lastIndex--;
                     }
 
-                    document.querySelector('.newsCards').innerHTML = output;
+
                 })
         })
 })
@@ -187,8 +196,14 @@ function countProperties(obj) {
 }
 function matchingMediaQuerry(x) {
     if (x.matches) { // If media query matches
-        return 4;
+        return 5;
     } else {
-        return 20;
+        return 25;
+    }
+}
+
+function matchingMediaQuerryForNewsGrid(x) {
+    if (x.matches) { // If media query matches
+        document.querySelector('.newsGrid').style.display = "none";
     }
 }
