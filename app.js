@@ -361,3 +361,9 @@ function timeAgo(dateParam) {
 
     return getFormattedDate(date); // 10. January 2017. at 10:20
 }
+
+// sorting table
+
+function sortTableByColumn(table, column, asc = true) {
+    const tbody = table.tBodies
+}

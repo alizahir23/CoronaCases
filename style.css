@@ -51,9 +51,6 @@ thead th {
   .newsGrid {
     margin-left: 0;
   }
-  .tableCol {
-    overflow-x: auto;
-  }
 }
 
 .globalTotals span {
@@ -63,4 +60,8 @@ thead th {
 
 .cImg {
   height: 7vh;
+}
+
+table:last-child {
+  border-bottom: 2px solid #333;
 }
