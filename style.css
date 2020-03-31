@@ -51,6 +51,9 @@ thead th {
   .newsGrid {
     margin-left: 0;
   }
+  .tableCol {
+    overflow-x: auto;
+  }
 }
 
 .globalTotals span {
