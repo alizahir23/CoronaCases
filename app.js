@@ -37,24 +37,33 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
 
                 })
                 .then(countryName => {
+
                     result.sort((a, b) => parseFloat(a.cases) - parseFloat(b.cases));
                     result.reverse();
                     result.forEach((data, index) => {
                         if (data.country == countryName) {
 
+                            if (data.deathsPerOneMillion === null) {
+                                data.deathsPerOneMillion = 0;
+                            }
+                            if (data.casesPerOneMillion === null) {
+                                data.casesPerOneMillion = 0;
+                            }
+
                             output = `<tr class="current">
                                         <th class=" ">${index + 1}</th>
-                                        <td class='country '>${data.country} <span class="badge badge-pill badge-warning">Your Location</span></td>
-                                        <td>${data.cases.toLocaleString()}</td>
-                                        <td>${data.todayCases.toLocaleString()}</td>
-                                        <td>${data.deaths.toLocaleString()}</td>
-                                        <td>${data.todayDeaths.toLocaleString()}</td>
-                                        <td>${data.recovered.toLocaleString()}</td>
+                                        <td class='country '>${data.country} <span class="badge badge-pill badge-warning my-1">Your Location</span></td>
+                                        <td>${data.cases}</td>
+                                        <td class="todayCases">${data.todayCases}</td>
+                                        <td>${data.deaths}</td>
+                                        <td class"textAlign">${data.todayDeaths}</td>
+                                        <td>${data.recovered}</td>
                                         <td>${data.casesPerOneMillion}</td>
                                         <td>${data.deathsPerOneMillion}</td>
                                     </tr>`;
 
                             tableBody.innerHTML = output;
+
 
                         }
                     })
@@ -71,15 +80,21 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
 
                     result.forEach((data, index) => {
 
+                        if (data.deathsPerOneMillion === null) {
+                            data.deathsPerOneMillion = 0;
+                        }
+                        if (data.casesPerOneMillion === null) {
+                            data.casesPerOneMillion = 0;
+                        }
 
                         output += `<tr>
                                     <th class=" ">${index + 1}</th>
                                     <td class='country'>${data.country}</td>
-                                    <td>${data.cases.toLocaleString()}</td>
-                                    <td>${data.todayCases.toLocaleString()}</td>
-                                    <td>${data.deaths.toLocaleString()}</td>
-                                    <td>${data.todayDeaths.toLocaleString()}</td>
-                                    <td>${data.recovered.toLocaleString()}</td>
+                                    <td>${data.cases}</td>
+                                    <td>${data.todayCases}</td>
+                                    <td>${data.deaths}</td>
+                                    <td>${data.todayDeaths}</td>
+                                    <td>${data.recovered}</td>
                                     <td>${data.casesPerOneMillion}</td>
                                     <td>${data.deathsPerOneMillion}</td>
                                    </tr>`;
@@ -92,16 +107,21 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
             result.sort((a, b) => parseFloat(a.cases) - parseFloat(b.cases));
             result.reverse();
             result.forEach((data, index) => {
-
+                if (data.deathsPerOneMillion === null) {
+                    data.deathsPerOneMillion = 0;
+                }
+                if (data.casesPerOneMillion === null) {
+                    data.casesPerOneMillion = 0;
+                }
 
                 output += `<tr>
                             <th class=" ">${index + 1}</th>
                             <td class='country'>${data.country}</td>
-                            <td>${data.cases.toLocaleString()}</td>
-                            <td>${data.todayCases.toLocaleString()}</td>
-                            <td>${data.deaths.toLocaleString()}</td>
-                            <td>${data.todayDeaths.toLocaleString()}</td>
-                            <td>${data.recovered.toLocaleString()}</td>
+                            <td>${data.cases}</td>
+                            <td>${data.todayCases}</td>
+                            <td>${data.deaths}</td>
+                            <td>${data.todayDeaths}</td>
+                            <td>${data.recovered}</td>
                             <td>${data.casesPerOneMillion}</td>
                             <td>${data.deathsPerOneMillion}</td>
                            </tr>`;
@@ -150,6 +170,20 @@ function filterCountries(e) {
 
 };
 
+const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+    v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+)(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+// do the work...
+document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+    var table = th.closest('table');
+    Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+        .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+        .forEach(tr => table.appendChild(tr));
+})));
+
 // Getting News
 navigator.geolocation.getCurrentPosition(position => {
     lat = position.coords.latitude;
@@ -189,12 +223,12 @@ navigator.geolocation.getCurrentPosition(position => {
                     while (i > 0) {
 
                         document.querySelector('.newsCards').innerHTML += `
-                        <div class="card newsCard" ">
+                        <div class="card newsCard text-white bg-dark" ">
                         <img class="card-img-top" src="${newsItems[0][lastIndex].image}" alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">${newsItems[0][lastIndex].time}</p>
                             <h5 class="card-title">${newsItems[0][lastIndex].title}</h5>
-                            <a href="${newsItems[0][lastIndex].url}" target="_blank" class="btn btn-primary w-100">View Full Story</a>
+                            <a href="${newsItems[0][lastIndex].url}" target="_blank" class="btn bg-light w-100 ">View Full Story</a>
                         </div>
                       </div>
                         `;
@@ -235,12 +269,12 @@ navigator.geolocation.getCurrentPosition(position => {
             while (i > 0) {
 
                 document.querySelector('.newsCards').innerHTML += `
-                        <div class="card newsCard" ">
+                        <div class="card newsCard text-white bg-dark" ">
                         <img class="card-img-top" src="${newsItems[0][lastIndex].image}" alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">${newsItems[0][lastIndex].time}</p>
                             <h5 class="card-title">${newsItems[0][lastIndex].title}</h5>
-                            <a href="${newsItems[0][lastIndex].url}" target="_blank" class="btn btn-primary w-100">View Full Story</a>
+                            <a href="${newsItems[0][lastIndex].url}" target="_blank" class="btn  bg-light w-100">View Full Story</a>
                         </div>
                       </div>
                         `;
@@ -364,6 +398,3 @@ function timeAgo(dateParam) {
 
 // sorting table
 
-function sortTableByColumn(table, column, asc = true) {
-    const tbody = table.tBodies
-}
