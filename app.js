@@ -239,6 +239,9 @@ navigator.geolocation.getCurrentPosition(position => {
 
 
                 })
+                .catch(error => {
+                    document.querySelector('.newsCards').innerHTML = "Error loading Latest News...Kindly ensure you have a secure connection."
+                })
         })
 }, err => {
     // if location declined
