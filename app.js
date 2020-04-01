@@ -169,7 +169,7 @@ function filterCountries(e) {
     }
 
 };
-
+// sorting
 const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
 
 const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
@@ -300,7 +300,6 @@ fetch('https://corona.lmao.ninja/all')
         <span class="badge badge-warning">Total Cases: ${data.cases.toLocaleString()}</span>
         <span class="badge badge-danger">Total Deaths: ${data.deaths.toLocaleString()}</span>
         <span class="badge badge-success">Total Recovered: ${data.recovered.toLocaleString()}</span>
-        <span class="badge badge-info">Active Cases: ${data.active.toLocaleString()}</span>
         <span class="badge badge-light">Last Updated: ${lastUpdate}</span>
         `;
     })
