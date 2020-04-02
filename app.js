@@ -52,7 +52,7 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
 
                             output = `<tr class="current">
                                         <th class=" ">${index + 1}</th>
-                                        <td class='country '>${data.country} <img src="${data.countryInfo.flag}" style="max-width: 2.5vw;"> <span class="badge badge-pill badge-warning my-1">Your Location</span></td>
+                                        <td class='country '>${data.country} <img src="${data.countryInfo.flag}" style="max-width: 1rem;"> <span class="badge badge-pill badge-warning my-1">Your Location</span></td>
                                         <td>${data.cases}</td>
                                         <td class="todayCases">${data.todayCases}</td>
                                         <td>${data.deaths}</td>
@@ -89,7 +89,7 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
 
                         output += `<tr>
                                     <th class=" ">${index + 1}</th>
-                                    <td class='country'>${data.country}  <img src="${data.countryInfo.flag}" style="max-width: 2.5vw;"></td>
+                                    <td class='country'>${data.country}  <img src="${data.countryInfo.flag}" style="max-width: 1rem;"></td>
                                     <td>${data.cases}</td>
                                     <td>${data.todayCases}</td>
                                     <td>${data.deaths}</td>
@@ -116,7 +116,7 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
 
                 output += `<tr>
                             <th class=" ">${index + 1}</th>
-                            <td class='country'>${data.country} <img src="${data.countryInfo.flag}" style="max-width: 2.5vw;"></td>
+                            <td class='country'>${data.country} <img src="${data.countryInfo.flag}" style="max-width: 1rem;"></td>
                             <td>${data.cases}</td>
                             <td>${data.todayCases}</td>
                             <td>${data.deaths}</td>
