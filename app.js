@@ -260,6 +260,7 @@ navigator.geolocation.getCurrentPosition(position => {
         .then(data => {
             let i = 1;
             let j = 0;
+
             console.log(data)
             let newsItems = data.articles;
 
@@ -270,17 +271,18 @@ navigator.geolocation.getCurrentPosition(position => {
             let output = "";
 
             while (i > 0) {
+                let publishedDate = new Date(newsItems[j].publishedAt);
 
                 document.querySelector('.newsCards').innerHTML += `
-                            <div class="card newsCard text-white bg-dark" ">
-                            <img class="card-img-top" src="${newsItems[j].urlToImage}" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">${newsItems[j].publishedAt}</p>
-                                <h5 class="card-title">${newsItems[j].title}</h5>
-                                <a href="${newsItems[j].url}" target="_blank" class="btn  bg-light w-100">View Full Story</a>
-                            </div>
-                          </div>
-                            `;
+                    <div class="card newsCard text-white bg-dark" ">
+                    <img class="card-img-top" src="${newsItems[j].urlToImage}" alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-text">${msToTime(publishedDate.getTime())} ${publishedDate.getDate()} ${MONTH_NAMES[publishedDate.getMonth()]}, ${publishedDate.getFullYear()}</p >
+                <h5 class="card-title">${newsItems[j].title}</h5>
+                <a href="${newsItems[j].url}" target="_blank" class="btn  bg-light w-100">View Full Story</a>
+                    </div >
+                  </div >
+                `;
 
                 i--;
                 j++;

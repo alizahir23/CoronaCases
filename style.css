@@ -11,6 +11,10 @@ footer {
   padding: 25px;
 }
 
+.myContainer {
+  padding: 0px 5vw 0px 5vw;
+}
+
 .titleA {
   justify-items: center;
 }
@@ -31,10 +35,6 @@ thead th {
   position: sticky;
 
   top: 0;
-}
-
-.newsGrid {
-  margin-left: -10vw;
 }
 
 .newsGrid h3 {
