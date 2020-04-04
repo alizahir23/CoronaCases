@@ -51,7 +51,7 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
                             }
 
                             output = `<tr class="current">
-                                        <th class=" ">${index + 1}</th>
+                                        <th class=" ">${index}</th>
                                         <td class='country '>${data.country} <img src="${data.countryInfo.flag}" style="max-width: 1rem;"> <span class="badge badge-pill badge-warning my-1">Your Location</span></td>
                                         <td>${data.cases}</td>
                                         <td class="todayCases">${data.todayCases}</td>
@@ -79,16 +79,16 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
 
 
                     result.forEach((data, index) => {
+                        if (index !== 0) {
+                            if (data.deathsPerOneMillion === null) {
+                                data.deathsPerOneMillion = 0;
+                            }
+                            if (data.casesPerOneMillion === null) {
+                                data.casesPerOneMillion = 0;
+                            }
 
-                        if (data.deathsPerOneMillion === null) {
-                            data.deathsPerOneMillion = 0;
-                        }
-                        if (data.casesPerOneMillion === null) {
-                            data.casesPerOneMillion = 0;
-                        }
-
-                        output += `<tr>
-                                    <th class=" ">${index + 1}</th>
+                            output += `<tr>
+                                    <th class=" ">${index}</th>
                                     <td class='country'>${data.country}  <img src="${data.countryInfo.flag}" style="max-width: 1rem;"></td>
                                     <td>${data.cases}</td>
                                     <td>${data.todayCases}</td>
@@ -98,6 +98,7 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
                                     <td>${data.casesPerOneMillion}</td>
                                     <td>${data.deathsPerOneMillion}</td>
                                    </tr>`;
+                        }
                     })
                     tableBody.innerHTML = output;
                 })
@@ -107,15 +108,16 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
             result.sort((a, b) => parseFloat(a.cases) - parseFloat(b.cases));
             result.reverse();
             result.forEach((data, index) => {
-                if (data.deathsPerOneMillion === null) {
-                    data.deathsPerOneMillion = 0;
-                }
-                if (data.casesPerOneMillion === null) {
-                    data.casesPerOneMillion = 0;
-                }
+                if (index !== 0) {
+                    if (data.deathsPerOneMillion === null) {
+                        data.deathsPerOneMillion = 0;
+                    }
+                    if (data.casesPerOneMillion === null) {
+                        data.casesPerOneMillion = 0;
+                    }
 
-                output += `<tr>
-                            <th class=" ">${index + 1}</th>
+                    output += `<tr>
+                            <th class=" ">${index}</th>
                             <td class='country'>${data.country} <img src="${data.countryInfo.flag}" style="max-width: 1rem;"></td>
                             <td>${data.cases}</td>
                             <td>${data.todayCases}</td>
@@ -125,6 +127,7 @@ fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
                             <td>${data.casesPerOneMillion}</td>
                             <td>${data.deathsPerOneMillion}</td>
                            </tr>`;
+                }
             })
             tableBody.innerHTML = output;
         })
@@ -205,85 +208,80 @@ navigator.geolocation.getCurrentPosition(position => {
 
         })
         .then(country => {
-            fetch(`https://thevirustracker.com/free-api?countryNewsTotal=${country}`)
+            fetch(`https://newsapi.org/v2/top-headlines?country=${country}&q=coronavirus&apiKey=2d2412f44fac47bfaa902b2f12da5c02`)
                 .then(response => response.json())
                 .then(data => {
                     let i = 1;
+                    let j = 0;
                     console.log(data)
-                    let newsItems = data.countrynewsitems;
+                    let newsItems = data.articles;
 
                     var x = window.matchMedia("(max-width: 479px)");
 
                     i = matchingMediaQuerry(x);
 
-                    let lastIndex = countProperties(newsItems[0]);
                     let output = "";
 
-                    lastIndex--;
                     while (i > 0) {
 
                         document.querySelector('.newsCards').innerHTML += `
-                        <div class="card newsCard text-white bg-dark" ">
-                        <img class="card-img-top" src="${newsItems[0][lastIndex].image}" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">${newsItems[0][lastIndex].time}</p>
-                            <h5 class="card-title">${newsItems[0][lastIndex].title}</h5>
-                            <a href="${newsItems[0][lastIndex].url}" target="_blank" class="btn bg-light w-100 ">View Full Story</a>
-                        </div>
-                      </div>
-                        `;
+                            <div class="card newsCard text-white bg-dark" ">
+                            <img class="card-img-top" src="${newsItems[j].urlToImage}" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">${newsItems[j].publishedAt}</p>
+                                <h5 class="card-title">${newsItems[j].title}</h5>
+                                <a href="${newsItems[j].url}" target="_blank" class="btn  bg-light w-100">View Full Story</a>
+                            </div>
+                          </div>
+                            `;
 
                         i--;
-                        lastIndex--;
+                        j++;
                     }
 
 
-                })
-                .catch(error => {
-                    document.querySelector('.newsCards').innerHTML = "Error loading Latest News...Kindly ensure you have a secure connection."
                 })
         })
 }, err => {
     // if location declined
     document.querySelector('.alertContainer').innerHTML = `
-        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-            <strong>${err.message}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    `;
+                <div class= "alert alert-danger alert-dismissible fade show text-center" role = "alert" >
+                <strong>${err.message}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div >
+                `;
 
-    fetch(`https://thevirustracker.com/free-api?countryNewsTotal=US`)
+    fetch(`https://newsapi.org/v2/top-headlines?country=us&q=coronavirus&apiKey=2d2412f44fac47bfaa902b2f12da5c02`)
         .then(response => response.json())
         .then(data => {
             let i = 1;
+            let j = 0;
             console.log(data)
-            let newsItems = data.countrynewsitems;
+            let newsItems = data.articles;
 
             var x = window.matchMedia("(max-width: 479px)");
 
             i = matchingMediaQuerry(x);
 
-            let lastIndex = countProperties(newsItems[0]);
             let output = "";
 
-            lastIndex--;
             while (i > 0) {
 
                 document.querySelector('.newsCards').innerHTML += `
-                        <div class="card newsCard text-white bg-dark" ">
-                        <img class="card-img-top" src="${newsItems[0][lastIndex].image}" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">${newsItems[0][lastIndex].time}</p>
-                            <h5 class="card-title">${newsItems[0][lastIndex].title}</h5>
-                            <a href="${newsItems[0][lastIndex].url}" target="_blank" class="btn  bg-light w-100">View Full Story</a>
-                        </div>
-                      </div>
-                        `;
+                            <div class="card newsCard text-white bg-dark" ">
+                            <img class="card-img-top" src="${newsItems[j].urlToImage}" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">${newsItems[j].publishedAt}</p>
+                                <h5 class="card-title">${newsItems[j].title}</h5>
+                                <a href="${newsItems[j].url}" target="_blank" class="btn  bg-light w-100">View Full Story</a>
+                            </div>
+                          </div>
+                            `;
 
                 i--;
-                lastIndex--;
+                j++;
             }
 
 
@@ -316,7 +314,7 @@ function matchingMediaQuerry(x) {
     if (x.matches) { // If media query matches
         return 5;
     } else {
-        return 25;
+        return 20;
     }
 }
 

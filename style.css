@@ -43,8 +43,7 @@ thead th {
 }
 
 .newsCard {
-  margin: 2vh 0 2vh 0;
-  border-radius: 5px;
+  margin: 5vh 0 5vh 0;
   border: none;
 }
 
@@ -69,4 +68,8 @@ table:last-child {
 
 th:hover {
   cursor: pointer;
+}
+
+tr {
+  border-radius: 10px;
 }
