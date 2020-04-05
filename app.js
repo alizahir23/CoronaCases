@@ -247,7 +247,7 @@ navigator.geolocation.getCurrentPosition(position => {
 }, err => {
     // if location declined
     document.querySelector('.alertContainer').innerHTML = `
-                        < div class= "alert alert-danger alert-dismissible fade show text-center" role = "alert" >
+                        <div class= "alert alert-danger alert-dismissible fade show text-center" role = "alert" >
                             <strong>${err.message}</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
