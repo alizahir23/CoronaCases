@@ -51,7 +51,7 @@ fetch("https://corona.lmao.ninja/v2/countries?sort=country", requestOptions)
                             }
 
                             output = `<tr class="current">
-                                        <th class=" ">${index}</th>
+                                        <th class=" ">${index + 1}</th>
                                         <td class='country '>${data.country} <img src="${data.countryInfo.flag}" style="max-width: 1rem;"> <span class="badge badge-pill badge-warning my-1">Your Location</span></td>
                                         <td>${data.cases}</td>
                                         <td class="todayCases">${data.todayCases}</td>
