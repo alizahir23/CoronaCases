@@ -7,7 +7,7 @@ let lat, long, currentCountry, d;
 const tableBody = document.querySelector('.tbody');
 
 
-fetch("https://corona.lmao.ninja/countries?sort=country", requestOptions)
+fetch("https://corona.lmao.ninja/v2/countries?sort=country", requestOptions)
     .then(response => response.json())
     .then(result => {
 
@@ -294,7 +294,7 @@ navigator.geolocation.getCurrentPosition(position => {
 
 // Global Totals
 
-fetch('https://corona.lmao.ninja/all')
+fetch('https://corona.lmao.ninja/v2/all')
     .then(response => response.json())
     .then(data => {
         console.log(data);
